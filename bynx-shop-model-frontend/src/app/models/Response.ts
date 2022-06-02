@@ -3,5 +3,7 @@ export interface Response<T> {
   statusCode: number;
   status: string;
   message: string;
-  data: Map<string, T>;
+  data: {[key in PropType]: T};
 }
+
+export type PropType = "products" | "users";

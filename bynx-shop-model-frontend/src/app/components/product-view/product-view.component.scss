@@ -1,5 +1,6 @@
-.card-img, .card-img-top, .card-img-bottom {
+.card-img-top {
   width: 60%;
+  font-size: 10rem;
 }
 
 p {
@@ -10,4 +11,8 @@ p {
   border: none;
   background-color: white;
   padding-left: 0px;
+}
+
+s {
+  color: red;
 }

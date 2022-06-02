@@ -7,7 +7,7 @@ export class ToastService {
   toasts: any[] = [];
 
   showSuccess(textOrTpl: string | TemplateRef<any>) {
-    this.toasts.push({ textOrTpl, classname: 'bg-success text-light', delay: 30000});
+    this.toasts.push({ textOrTpl, classname: 'bg-success text-light', delay: 3000});
   }
 
   showError(textOrTpl: string | TemplateRef<any>) {
