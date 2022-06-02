@@ -1,1 +1,67 @@
-<p>shopping-cart works!</p>
+<section class="m-4">
+  <h5>Shopping Cart</h5>
+  <div class="row">
+    <div class="col-6 card">
+      <div class="card-body border-0" *ngFor="let i of [2, 3, 4, 5]">
+        <div class="row">
+          <div class="col-6">
+            <div class="card-body" style="display: inline">
+              <div class="d-flex col-4">
+                <img
+                  src="assets/digital{{ i }}.jpg"
+                  alt="{{ i }}"
+                  class="card-img-top"
+                />
+                <div class="position-relative">
+                  <span
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger pb-2"
+                  >
+                    x
+                  </span>
+                </div>
+              </div>
+              <div class="col-4" style="display: contents">
+                <span>iPhone</span>
+                <span><span>€1000 </span></span>
+                <small>(Only 1 left in stock)</small>
+                <input
+                  type="number"
+                  class="form-control"
+                  style="max-width: 50px"
+                  placeholder="1"
+                  aria-label="quantity"
+                  aria-describedby="quantity"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-6">Total: €1000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header h4">Billing Address</div>
+        <div class="card-body">
+          <h5>Total amount: €4000</h5>
+          <label for="name" class="col-sm-5 col-form-label">Name</label>
+          <input type="text" class="form-control" id="name" />
+          <label for="houseno" class="col-sm-5 col-form-label"
+            >House number</label
+          >
+          <input type="text" class="form-control" id="houseno" />
+          <label for="street" class="col-sm-5 col-form-label"
+            >Street name</label
+          >
+          <input type="text" class="form-control" id="street" />
+          <label for="zip" class="col-sm-5 col-form-label">Zip code</label>
+          <input type="text" class="form-control" id="zip" />
+          <label for="place" class="col-sm-5 col-form-label">Place</label>
+          <input type="text" class="form-control" id="place" />
+        </div>
+        <button class="col-2 m-3 btn btn-primary" routerLink="/products">Buy</button>
+      </div>
+    </div>
+  </div>
+</section>
