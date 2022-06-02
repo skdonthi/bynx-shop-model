@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-product-view',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toastService: ToastService) { }
 
   ngOnInit(): void {
+  }
+
+  addToCart() {
+    this.toastService.showSuccess('I am a success toast');
   }
 
 }
