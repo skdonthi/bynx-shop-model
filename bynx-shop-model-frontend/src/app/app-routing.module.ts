@@ -5,8 +5,8 @@ import { ProductViewComponent } from './components/product-view/product-view.com
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
-  { path: 'product/view', component: ProductViewComponent },
-  { path: 'shopping/cart', component: ShoppingCartComponent },
+  { path: 'products', component: ProductViewComponent },
+  { path: 'cart', component: ShoppingCartComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {path: '**', component: HomeComponent}
