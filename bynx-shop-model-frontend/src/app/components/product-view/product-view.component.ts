@@ -22,42 +22,37 @@ export class ProductViewComponent implements OnInit {
     );
   }
 
-  public digitalProducts: ProductDisplay[] = [];
-  public normalProducts: ProductDisplay[] = [];
+  public allProducts: ProductDisplay[] = [];
   private productsAddedTocart: ProductDisplay[] = [];
 
   ngOnInit(): void {
     this.productService
       .getProducts()
       .subscribe((response: Array<DigitalProduct | NormalProduct>) => {
-        response.forEach((p) => {
+        this.allProducts = response.map((p) => {
           const pid = this.productsAddedTocart.find(product => product.articleNumber === p.articleNumber);
-          const pdt = {...p, ...pid } as ProductDisplay;
-          if (pdt.type === 'DIGITAL') {
-            this.digitalProducts.push(pdt);
-          } else {
-            this.normalProducts.push(pdt);
+          if(pid) {
+            pid.isAddedTocart = true;
+            p = {...p, ...pid };
           }
+          return p as ProductDisplay;
         });
       });
   }
 
   addToCart(product: ProductDisplay) {
+    const idx = this.allProducts.findIndex(p => p.articleNumber === product.articleNumber);
+    this.allProducts[idx].isAddedTocart = true;
     this.toastService.showSuccess(`${product.name} is added to the cart`);
     this.cartService.shoppingCart$.next([...this.productsAddedTocart, product]);
   }
 
-  addNormalProductToCart(product: ProductDisplay) {
-    const idx = this.normalProducts.findIndex(p => p.articleNumber === product.articleNumber);
-    this.normalProducts[idx].isAddedTocart = true;
-    this.addToCart(product);
-  }
-
-
-  addDigitalProductToCart(product: ProductDisplay) {
-    const idx = this.digitalProducts.findIndex(p => p.articleNumber === product.articleNumber);
-    this.digitalProducts[idx].isAddedTocart = true;
-    this.addToCart(product);
+  removeFromCart(product: ProductDisplay) {
+    const idx = this.allProducts.findIndex(p => p.articleNumber === product.articleNumber);
+    this.allProducts[idx].isAddedTocart = false;
+    this.toastService.showSuccess(`${product.name} is removed to the cart`);
+    this.productsAddedTocart = this.productsAddedTocart.filter(p => p.articleNumber !== product.articleNumber);
+    this.cartService.shoppingCart$.next([...this.productsAddedTocart]);
   }
 
   getStackCount(product: ProductDisplay) {

@@ -21,69 +21,82 @@
 <section class="m-4">
   <h5 class="text-primary">Digital Products</h5>
   <div class="card-group">
-    <div class="card border-0 mx-4" *ngFor='let product of digitalProducts'>
-      <span class="{{product.imageUrls[0]}} card-img-top"></span>
+    <div class="card border-0 mx-4" *ngFor="let product of allProducts.slice(0, 4)">
+      <span class="{{ product.imageUrls[0] }} card-img-top"></span>
       <div class="card-footer bg-white border-0">
-        <span>{{product.name}}</span>
-        <p><span>€{{product.prices[0]}} </span><s> €{{product.prices[1]}}</s></p>
+        <span>{{ product.name }}</span>
+        <p>
+          <span>€{{ product.prices[0] }} </span><s> €{{ product.prices[1] }}</s>
+        </p>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault_{{product.articleNumber}}" id="flexRadioDefault1" checked="{{checkBuyOption(product, 'DOWNLOAD_LINK')}}">
-          <label class="form-check-label" for="flexRadioDefault1">
-           Download link
-          </label>
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault_{{ product.articleNumber }}"
+            id="flexRadioDefault1"
+            checked="{{ checkBuyOption(product, 'DOWNLOAD_LINK') }}"
+          />
+          <label class="form-check-label" for="flexRadioDefault1"> Download link </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault_{{product.articleNumber}}" id="flexRadioDefault2" checked="{{checkBuyOption(product,'EMAIL')}}">
-          <label class="form-check-label" for="flexRadioDefault2">
-            Email
-          </label>
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault_{{ product.articleNumber }}"
+            id="flexRadioDefault2"
+            checked="{{ checkBuyOption(product, 'EMAIL') }}"
+          />
+          <label class="form-check-label" for="flexRadioDefault2"> Email </label>
+        </div>
+        <div class="input-group input-group-sm mb-2">
+          <span class="input-group-text" id="quantity">Quantity</span>
+          <input
+            type="number"
+            class="form-control"
+            style="max-width: 75px"
+            value="0"
+            aria-label="quantity"
+            aria-describedby="quantity"
+            [(ngModel)]="product.quantity"
+          />
         </div>
         <div class="d-flex justify-content-start">
-          <button class="btn btn-sm btn-primary" (click)="addDigitalProductToCart(product)">
-            Add to cart
-          </button>
-          <button
-            class="btn btn-sm btn-outline-warning mx-2"
-            routerLink="/cart"
-          >
-            Go to cart
-          </button>
+          <button class="btn btn-sm btn-primary" *ngIf="!product.isAddedTocart" [disabled]="!product.quantity" (click)="addToCart(product)">Add to cart</button>
+          <button class="btn btn-sm btn-danger" *ngIf="product.isAddedTocart" (click)="removeFromCart(product)">Remove from cart</button>
+          <button class="btn btn-sm btn-outline-warning mx-2" routerLink="/cart">Go to cart</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 <section class="m-4">
-  <hr>
+  <hr />
   <h5 class="text-primary">Normal Products</h5>
   <div class="card-group my-4">
-    <div class="card border-0 mx-4" *ngFor="let np of normalProducts.slice(0,4);">
-      <img src="{{np.imageUrls[0]}}" alt="{{ np.name }}" class="card-img-top" />
-      <div class="card-footer bg-white border-0">
-        <span>{{np.name}}</span>
-        <p><span>€{{np.prices[0]}}</span><s> €{{np.prices[1]}}</s></p>
-        <small>Only {{getStackCount(np)}} left in stock</small>
+    <div class="card border-0 mx-4" *ngFor="let product of allProducts.slice(5, 9)">
+      <img src="{{ product.imageUrls[0] }}" alt="{{ product.name }}" class="card-img-top" />
+      <div class="card-footer bg-white border-0" *ngIf="product.type === 'NORMAL'">
+        <span>{{ product.name }}</span>
+        <p>
+          <span>€{{ product.prices[0] }}</span
+          ><s> €{{ product.prices[1] }}</s>
+        </p>
+        <small>Only {{ getStackCount(product) }} left in stock</small>
         <div class="input-group input-group-sm mb-2">
           <span class="input-group-text" id="quantity">Quantity</span>
           <input
             type="number"
             class="form-control"
-            style="max-width: 50px"
-            placeholder="1"
+            style="max-width: 75px"
             aria-label="quantity"
             aria-describedby="quantity"
-            [(ngModel)]="np.quantity"
+            [(ngModel)]="product.quantity"
           />
         </div>
         <div class="d-flex justify-content-start">
-          <button class="btn btn-sm btn-primary" *ngIf="!np.isAddedTocart" (click)="addNormalProductToCart(np)">Add to cart</button>
-          <button class="btn btn-sm btn-danger" *ngIf="np.isAddedTocart">Remove from cart</button>
-          <button
-            class="btn btn-sm btn-outline-warning mx-2"
-            routerLink="/cart"
-          >
-            Go to cart
-          </button>
+          <button class="btn btn-sm btn-primary" *ngIf="!product.isAddedTocart" [disabled]="!product.quantity" (click)="addToCart(product)">Add to cart</button>
+          <button class="btn btn-sm btn-danger" *ngIf="product.isAddedTocart" (click)="removeFromCart(product)">Remove from cart</button>
+          <button class="btn btn-sm btn-outline-warning mx-2" routerLink="/cart">Go to cart</button>
         </div>
       </div>
     </div>

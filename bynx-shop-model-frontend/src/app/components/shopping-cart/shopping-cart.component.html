@@ -1,74 +1,98 @@
 <section class="m-4">
   <h5>Shopping Cart</h5>
-  <div class="row">
-    <div class="col-6 card" *ngIf="productsInCart.length">
+  <div class="row" *ngIf="productsInCart.length">
+    <div class="col-md-6 col-12 card m-2">
       <div class="border-0" *ngFor="let product of productsInCart">
         <div class="row">
           <div class="col-6">
             <div class="card-body" style="display: inline">
               <div class="d-flex col-4">
-                <img *ngIf="product.type==='NORMAL'"
-                  src="{{product.imageUrls[0]}}"
-                  alt="{{ product.name }}"
-                  class="card-img-top"
-                />
-                <span *ngIf="product.type==='DIGITAL'" class="{{product.imageUrls[0]}} card-img-top"></span>
+                <img *ngIf="product.type === 'NORMAL'" src="{{ product.imageUrls[0] }}" alt="{{ product.name }}" class="card-img-top" />
+                <h1 *ngIf="product.type === 'DIGITAL'" class="{{ product.imageUrls[0] }} card-img-top"></h1>
                 <div class="position-relative">
-                  <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger pb-2"
-                  >
-                    x
-                  </span>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger pb-2"> x </span>
                 </div>
               </div>
               <div class="col-4" style="display: contents">
                 <span>{{ product.name }}</span>
-                <span><span>{{ product.name }} </span></span>
-                <small *ngIf="product.type==='NORMAL'">(Only {{getStackCount(product)}} left in stock)</small>
+                <span
+                  ><span>{{ product.name }} </span></span
+                >
+                <small *ngIf="product.type === 'NORMAL'">(Only {{ getStackCount(product) }} left in stock)</small>
                 <input
                   type="number"
                   class="form-control"
-                  style="max-width: 50px"
+                  style="max-width: 75px"
                   placeholder="1"
                   aria-label="quantity"
                   aria-describedby="quantity"
+                  [(ngModel)]="product.quantity"
+                  (ngModelChange)="calcTotalPrice()"
                 />
               </div>
             </div>
           </div>
-          <div class="col-6 mt-4">Price: €1000</div>
+          <div class="col-6 mt-4">Price: € {{ getPriceOfSelectedQuantity(product) }}</div>
         </div>
       </div>
     </div>
 
-    <h1 *ngIf="!productsInCart.length" class="text-muted">Cart is empty. Please add products from
-      <a routerLink="/products">here</a>.</h1>
-      <div *ngIf="!productsInCart.length" class="bi bi-cart4 text-dark position-relative" style="font-size: 10rem;">
-      </div>
-
-
-    <div class="col-6"  *ngIf="productsInCart.length">
+    <div class="col-md-5 col-12 m-2">
       <div class="card">
         <div class="card-header h4">Billing Address</div>
         <div class="card-body">
-          <h5>Total amount: €4000</h5>
-          <label for="name" class="col-sm-5 col-form-label">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Lorem ipsum" />
-          <label for="houseno" class="col-sm-5 col-form-label"
-            >House number</label
-          >
-          <input type="text" class="form-control" id="houseno" placeholder="127"/>
-          <label for="street" class="col-sm-5 col-form-label"
-            >Street name</label
-          >
-          <input type="text" class="form-control" id="street" placeholder="straße"/>
-          <label for="zip" class="col-sm-5 col-form-label">Zip code</label>
-          <input type="text" class="form-control" id="zip" placeholder="200095"/>
-          <label for="place" class="col-sm-5 col-form-label">Place</label>
-          <input type="text" class="form-control" id="place" placeholder="Hamburg"/>
+          <h5>Total amount: € {{ totalPrice }}</h5>
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name" class="col-sm-5 col-form-label">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" required />
+              <div *ngIf="!name?.valid && (name?.dirty || name?.touched)">
+                <div class="invalid-feedback" [hidden]="!name?.errors?.['required']">Name is required</div>
+              </div>
+            </div>
+            <div formGroupName="address">
+              <div class="form-group">
+                <label for="houseno" class="col-sm-5 col-form-label">House number</label>
+                <input type="text" class="form-control" id="houseno" formControlName="houseNumber" />
+                <div *ngIf="!houseNumber?.valid && (houseNumber?.dirty || houseNumber?.touched)">
+                  <div class="invalid-feedback" [hidden]="!houseNumber?.errors?.['required']">House Number is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="street" class="col-sm-5 col-form-label">Street name</label>
+                <input type="text" class="form-control" id="street" formControlName="street" />
+                <div *ngIf="!street?.valid && (street?.dirty || street?.touched)">
+                  <div class="invalid-feedback" [hidden]="!street?.errors?.['required']">Street is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="zip" class="col-sm-5 col-form-label">Zip code</label>
+                <input type="text" class="form-control" id="zip" formControlName="zipCode" />
+                <div *ngIf="!zipCode?.valid && (zipCode?.dirty || zipCode?.touched)">
+                  <div class="invalid-feedback" [hidden]="!zipCode?.errors?.['required']">zip code is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="place" class="col-sm-5 col-form-label">Place</label>
+                <input type="text" class="form-control" id="place" formControlName="place" />
+                <div *ngIf="!place?.valid && (place?.dirty || place?.touched)">
+                  <div class="invalid-feedback" [hidden]="!place?.errors?.['required']">Place is required</div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <button class="col-2 m-3 btn btn-primary" routerLink="/products" [disabled]="!productsInCart.length">Buy</button>
       </div>
     </div>
   </div>
+
+  <div *ngIf="!productsInCart.length">
+    <h1 class="text-muted">Cart is empty. Please add products from <a routerLink="/products">here</a>.</h1>
+    <div class="bi bi-cart4 text-dark position-relative" style="font-size: 10rem"></div>
+  </div>
+
+  <pre *ngIf="productsInCart.length">
+    {{ payload | json }}
+  </pre>
 </section>
