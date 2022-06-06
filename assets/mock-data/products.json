@@ -1,0 +1,91 @@
+{
+  "timestamp": "2022-06-02T12:00:19.160Z",
+  "statusCode": 200,
+  "status": "OK",
+  "message": "products retrieved",
+  "data": {
+    "products": [
+      {
+        "name": "Digital song",
+        "articleNumber": "22f2828b-f04c-4dae-951b-7a5faf27fc22",
+        "prices": [2, 3],
+        "imageUrls": ["bi bi-file-music"],
+        "type": "DIGITAL",
+        "category": "category 1",
+        "buyOption": "EMAIL"
+      },
+      {
+        "name": "Digital Movie",
+        "articleNumber": "45f2828b-f04c-4dae-951b-7a5faf27fc67",
+        "prices": [12, 15],
+        "imageUrls": ["bi bi-film"],
+        "type": "DIGITAL",
+        "category": "category 1",
+        "buyOption": "EMAIL"
+      },
+      {
+        "name": "Digital file",
+        "articleNumber": "gff2828b-f04c-4dae-951b-dfddfdfdf",
+        "prices": [2, 5],
+        "imageUrls": ["bi bi-file-binary"],
+        "type": "DIGITAL",
+        "category": "category 3",
+        "buyOption": "EMAIL"
+      },
+      {
+        "name": "E-book",
+        "articleNumber": "daadaad-f04c-4dae-951b-wtertgagt",
+        "prices": [7, 11],
+        "imageUrls": ["bi bi-book-half"],
+        "type": "DIGITAL",
+        "category": "category 2",
+        "buyOption": "EMAIL"
+      },
+      {
+        "name": "E-mail",
+        "articleNumber": "gwegwgweg4-f04c-4dae-951b-gegfwe4t4",
+        "prices": [2, 3],
+        "imageUrls": ["bi bi-envelope"],
+        "type": "DIGITAL",
+        "category": "category 1",
+        "buyOption": "EMAIL"
+      },
+      {
+        "name": "Apple iPhone",
+        "articleNumber": "52f2828b-f04c-4dae-951b-7a5faf27fc14",
+        "prices": [1000, 1100],
+        "imageUrls": ["assets/images/normal6.jpg"],
+        "type": "NORMAL",
+        "stock": 4,
+        "category": "category 1"
+      },
+      {
+        "name": "One plus Nord",
+        "articleNumber": "160611a3-4db1-4661-b124-9c17aecb584d",
+        "prices": [600, 750],
+        "imageUrls": ["assets/images/normal7.jpg"],
+        "type": "NORMAL",
+        "stock": 10,
+        "category": "category 2"
+      },
+      {
+        "name": "RealMe phone",
+        "articleNumber": "ccf9325b-6c33-43a6-93a4-ec057e455077",
+        "prices": [250, 280],
+        "imageUrls": ["assets/images/normal8.jpg"],
+        "type": "NORMAL",
+        "stock": 5,
+        "category": "category 3"
+      },
+      {
+        "name": "Samsung A20 S",
+        "articleNumber": "b1537ecf-a1ee-44c8-b2e2-18c5ba747375",
+        "prices": [700, 820],
+        "imageUrls": ["assets/images/normal9.jpg"],
+        "type": "NORMAL",
+        "stock": 7,
+        "category": "category 2"
+      }
+    ]
+  }
+}
