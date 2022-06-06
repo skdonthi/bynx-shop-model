@@ -9,9 +9,9 @@
               <div class="d-flex col-4">
                 <img *ngIf="product.type === 'NORMAL'" src="{{ product.imageUrls[0] }}" alt="{{ product.name }}" class="card-img-top" />
                 <h1 *ngIf="product.type === 'DIGITAL'" class="{{ product.imageUrls[0] }} card-img-top"></h1>
-                <div class="position-relative">
+                <a class="position-relative" (click)="removeFromCart(product)">
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger pb-2"> x </span>
-                </div>
+                </a>
               </div>
               <div class="col-4" style="display: contents">
                 <span>{{ product.name }}</span>

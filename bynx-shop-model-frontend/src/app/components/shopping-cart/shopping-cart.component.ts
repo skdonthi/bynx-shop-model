@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NormalProduct } from 'src/app/models/NormalProduct';
 import { ProductDisplay } from 'src/app/models/ProductDisplay';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -15,7 +16,7 @@ export class ShoppingCartComponent implements OnInit {
   userForm: FormGroup;
   payload: any;
 
-  constructor(private cartService: ShoppingCartService, private fb: FormBuilder) {
+  constructor(private cartService: ShoppingCartService, private fb: FormBuilder, private toastService: ToastService) {
     this.userForm = this.fb.group({
       name: ['Bynx PnM', Validators.required],
       address: this.fb.group({
@@ -74,5 +75,13 @@ export class ShoppingCartComponent implements OnInit {
 
   onSubmit() {
     console.log(this.userForm.value);
+  }
+
+  removeFromCart(product: ProductDisplay) {
+    const idx = this.productsInCart.findIndex(p => p.articleNumber === product.articleNumber);
+    this.productsInCart[idx].isAddedTocart = false;
+    this.toastService.showSuccess(`${product.name} is removed to the cart`);
+    this.productsInCart = this.productsInCart.filter(p => p.articleNumber !== product.articleNumber);
+    this.cartService.shoppingCart$.next([...this.productsInCart]);
   }
 }
