@@ -54,7 +54,6 @@ export class ShoppingCartComponent implements OnInit {
     this.payload = {
       products: this.productsInCart,
       user: this.userForm.value,
-      subscriptions: []
     };
   }
 
